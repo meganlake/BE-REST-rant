@@ -6,6 +6,10 @@ function show (data) {
         <Def>
             <main>
                 <h1>{data.place.name}</h1>
+                <img src= {data.place.pic} />
+                <h2>Description</h2>
+                <p>{data.place.city}, {data.place.state}</p>
+                <p>{data.place.cuisines}</p>
                 <h2>Rating</h2>
                 <p>Currently Unrated</p>
                 <h2>Comments</h2>
