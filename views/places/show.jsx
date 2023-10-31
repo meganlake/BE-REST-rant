@@ -2,12 +2,8 @@ const React = require('react')
 const Def = require('../default')
 
 function show (data) {
-    let comments = (
-        <h3 className="inactive">No Comments Yet!</h3>
-    )
-    let rating = (
-        <h3 className="inactive">Not yet rated.</h3>
-    )
+    let comments = <h3 className="inactive">No Comments Yet!</h3>
+    let rating = <h3 className="inactive">Not yet rated.</h3>
     if (data.place.comments.length) {
         let sumRatings = data.place.comments.reduce((tot, c) => {
             return tot + c.stars
@@ -17,11 +13,7 @@ function show (data) {
             for (let i = 0; i < averageRating; i++) {
                 stars += '🌟'
             }
-        rating = (
-            <h3>
-                {stars} stars
-            </h3>
-        )
+        rating = <h3>{stars} stars</h3>
         comments = data.place.comments.map(c => {
             return (
                 <div className="border">
@@ -66,7 +58,7 @@ function show (data) {
                     {comments}
                 </div>
                 <h2>Add Your Own Comment or Rant:</h2>
-                <form method="POST" action={`/places/${data.place.id}?_method=PUT`}>
+                <form action={`/places/${data.place.id}/comment`} method="POST">
                     <div className="row">
                         <div className="form-group col-sm-6">
                             <label htmlFor="author">Author</label>
@@ -78,20 +70,17 @@ function show (data) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="form-group col-sm-6">
-                            <select aria-label="Default select example">
-                                <option defaultValue>Star Rating</option>
-                                <option value="0.5">0.5</option>
-                                <option value="1">1</option>
-                                <option value="1.5">1.5</option>
-                                <option value="2">2</option>
-                                <option value="2.5">2.5</option>
-                                <option value="3">3</option>
-                                <option value="3.5">3.5</option>
-                                <option value="4">4</option>
-                                <option value="4.5">4.5</option>
-                                <option value="5">5</option>
-                            </select>
+                        <div id="slidecontainer" className="form-group col-sm-6">
+                            <label htmlFor="stars">Star Rating</label>
+                            <input
+                                type="range"
+                                step="0.5"
+                                min="1"
+                                max="5"
+                                id="stars"
+                                name="stars"
+                                className="form-control"
+                            />
                         </div>
                         <div className="form-group col-sm-6">
                             <label htmlFor="rant">Rant</label>
